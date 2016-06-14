@@ -82,6 +82,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-vinegar'
 Plugin 'gcmt/wildfire.vim'
+Plugin 'raichoo/purescript-vim'
+Plugin 'isRuslan/vim-es6'
+Plugin 'ElmCast/elm-vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'morhetz/gruvbox'
 """
 
 " All of your Plugins must be added before the following line
@@ -103,7 +109,7 @@ filetype plugin indent on    " required
 
 " show line numbers
 set number
-set rnu
+set nornu
 
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -201,13 +207,14 @@ set cursorline
 syntax enable
 
 " colour scheme
-colorscheme molokai
+colorscheme gruvbox
 
 " extra colour options
 set background=dark
-let g:molokai_original = 1
+" let g:molokai_original = 1
 let g:rehash256 = 1
 set t_Co=256
+
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -222,6 +229,8 @@ if has("gui_running")
     set guifont=Monaco\ 9.5
     colorscheme base16-eighties
 endif
+
+
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -414,45 +423,21 @@ set formatoptions-=c formatoptions-=r formatoptions-=o
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+" copying to the system clipboard (needs vim 7.4+)
+" set unamed to copy stright into the system register
+" leave empty to require "* to go into system register
+set clipboard=
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Mark's mis-spellings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:iabbrev consoel console
-:iabbrev conseol console
-:iabbrev funciton function
+" linting
+let g:syntastic_javascript_checkers = ['eslint']
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Coffee script
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>cs :CoffeeCompile<cr>
 
-" Coffeescript Linting
-let g:syntastic_coffee = ['coffeelint']
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Elm
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Using our style guide
-let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/bundle/coffeescript-style-guide/coffeelint.json" 
+let g:elm_format_autosave = 1
 
-" Set mode to active (runs whenever you save) and use the location list (:ll)
-let g:syntastic_mode_map = { "mode": "active" }
-let g:syntastic_always_populate_loc_list = 1
-
-" checks on open
-let g:syntastic_check_on_open = 1
-
-" highlight in place
-let g:syntastic_enable_signs = 1
-let g:syntastic_enable_highlighting = 1
-
-" Display Errors list
-map <leader>e :Errors<cr>
-
-" Close Errors list
-map <leader>lc :lclose<cr>
-
-" set and configure line width highlightning
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%80v', 100)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

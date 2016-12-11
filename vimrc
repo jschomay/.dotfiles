@@ -430,6 +430,16 @@ set clipboard=
 
 " linting
 let g:syntastic_javascript_checkers = ['eslint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+set mouse=a
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -437,7 +447,19 @@ let g:syntastic_javascript_checkers = ['eslint']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:elm_format_autosave = 1
+let g:elm_setup_keybindings = 0
+let g:elm_jump_to_error = 1
+let g:elm_detailed_complete = 1
+let g:elm_make_show_warnings = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
+" let g:syntastic_elm_checkers = ['elm_make']
 
+au FileType elm nmap <leader>f <Plug>(elm-format)
+au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+au FileType elm nmap <leader>d <Plug>(elm-show-docs)
+au FileType elm nmap <leader>m <Plug>(elm-make-main)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

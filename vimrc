@@ -79,7 +79,6 @@ Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-vinegar'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'raichoo/purescript-vim'
@@ -88,6 +87,8 @@ Plugin 'ElmCast/elm-vim'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'morhetz/gruvbox'
+Plugin 'w0rp/ale'
+Plugin 'ajh17/VimCompletesMe'
 """
 
 " All of your Plugins must be added before the following line
@@ -428,16 +429,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " leave empty to require "* to go into system register
 set clipboard=
 
-" linting
-let g:syntastic_javascript_checkers = ['eslint']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 set mouse=a
 
@@ -446,20 +437,18 @@ set mouse=a
 " Elm
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:elm_format_autosave = 1
+let g:elm_format_autosave = 0
 let g:elm_setup_keybindings = 0
 let g:elm_jump_to_error = 1
 let g:elm_detailed_complete = 1
 let g:elm_make_show_warnings = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:elm_syntastic_show_warnings = 1
-" let g:syntastic_elm_checkers = ['elm_make']
+let g:elm_syntastic_show_warnings = 0
+let g:syntastic_elm_checkers = []
 
 au FileType elm nmap <leader>f <Plug>(elm-format)
-au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+" au FileType elm nmap <leader>e <Plug>(elm-error-detail)
 au FileType elm nmap <leader>d <Plug>(elm-show-docs)
-au FileType elm nmap <leader>m <Plug>(elm-make-main)
+" au FileType elm nmap <leader>m <Plug>(elm-make-main)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

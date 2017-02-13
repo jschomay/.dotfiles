@@ -90,6 +90,10 @@ Plugin 'morhetz/gruvbox'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'guns/vim-sexp'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+Plugin 'tpope/vim-fireplace'
 """
 
 " All of your Plugins must be added before the following line
@@ -448,6 +452,16 @@ au FileType elm nmap <leader>f :ElmFormat<cr>
 " au FileType elm nmap <leader>e <Plug>(elm-error-detail)
 au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " au FileType elm nmap <leader>m <Plug>(elm-make-main)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clojure
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

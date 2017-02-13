@@ -89,6 +89,7 @@ Plugin 'neovimhaskell/haskell-vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
+Plugin 'craigemery/vim-autotag'
 """
 
 " All of your Plugins must be added before the following line
@@ -437,15 +438,13 @@ set mouse=a
 " Elm
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:elm_format_autosave = 0
+let g:elm_format_autosave = 1
 let g:elm_setup_keybindings = 0
 let g:elm_jump_to_error = 1
 let g:elm_detailed_complete = 1
 let g:elm_make_show_warnings = 1
-let g:elm_syntastic_show_warnings = 0
-let g:syntastic_elm_checkers = []
 
-au FileType elm nmap <leader>f <Plug>(elm-format)
+au FileType elm nmap <leader>f :ElmFormat<cr>
 " au FileType elm nmap <leader>e <Plug>(elm-error-detail)
 au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " au FileType elm nmap <leader>m <Plug>(elm-make-main)

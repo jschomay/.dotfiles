@@ -40,6 +40,10 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" use terminal colors (needs to run before anythign else)
+set termguicolors
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle package manager
 
@@ -94,6 +98,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'tpope/vim-fireplace'
+Plugin 'chriskempson/base16-vim'
 """
 
 " All of your Plugins must be added before the following line
@@ -212,14 +217,8 @@ set cursorline
 " Enable syntax highlighting
 syntax enable
 
-" colour scheme
-colorscheme gruvbox
-
-" extra colour options
-set background=dark
-" let g:molokai_original = 1
-let g:rehash256 = 1
-set t_Co=256
+" colorscheme gruvbox
+colorscheme base16-tomorrow-night
 
 
 " Set extra options when running in GUI mode
@@ -457,10 +456,12 @@ au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " Clojure
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+au FileType clojure RainbowParenthesesLoadRound
+au FileType clojure RainbowParenthesesLoadSquare
+au FileType clojure RainbowParenthesesLoadBraces
+au FileType clojure RainbowParenthesesToggle
+au FileType clojure RainbowParenthesesToggleAll
+au FileType clojure RainbowParenthesesActivate
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

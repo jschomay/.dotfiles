@@ -149,6 +149,8 @@ set tags=tags;/
 nmap <leader>v :vsplit <cr>
 nmap <leader>s :split <cr>
 
+nmap <leader>a :ALENextWrap <cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

@@ -456,10 +456,35 @@ au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " Clojure
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-au FileType clojure RainbowParenthesesLoadRound
-au FileType clojure RainbowParenthesesLoadSquare
-au FileType clojure RainbowParenthesesLoadBraces
-au FileType clojure RainbowParenthesesToggle
+let g:rbpt_colorpairs = [
+    \ ['brown',       'Gray93'],
+    \ ['brown',       'Gray60'],
+    \ ['brown',       'LightPink3'],
+    \ ['gray',        'DarkSeaGreen3'],
+    \ ['darkblue',    'Tan'],
+    \ ['darkgreen',   'LightSkyBlue3'],
+    \ ['darkmagenta', 'Thistle3'],
+    \ ['darkcyan',    'LightCyan3'],
+    \ ]
+
+" originals:
+    " \ ['red',         'RoyalBlue3'],
+    " \ ['brown',       'SeaGreen3'],
+    " \ ['blue',        'DarkOrchid3'],
+    " \ ['gray',        'firebrick3'],
+    " \ ['green',       'RoyalBlue3'],
+    " \ ['magenta',     'SeaGreen3'],
+    " \ ['cyan',        'DarkOrchid3'],
+    " \ ['darkred',     'firebrick3'],
+    " \ ['brown',       'RoyalBlue3'],
+    " \ ['darkblue',    'DarkOrchid3'],
+    " \ ['gray',        'firebrick3'],
+    " \ ['darkgreen',   'RoyalBlue3'],
+    " \ ['darkmagenta', 'SeaGreen3'],
+    " \ ['darkcyan',    'DarkOrchid3'],
+    " \ ['red',         'firebrick3'],
+    " \ ]
+
 au FileType clojure RainbowParenthesesToggleAll
 au FileType clojure RainbowParenthesesActivate
 

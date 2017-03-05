@@ -1,12 +1,14 @@
 .vim
 ====
 
-~~Mark's~~ My vim config
+~~Mark's~~ My vim config, based on [The ultimate Vim config](https://github.com/amix/vimrc)
 
 Set up
 ------
 
-1. clone to ~/.vim
-2. make link to vimrc: `ln -s ~/.vim/vimrc ~/.vimrc`
+Clone, symlink your .vimrc, and install plugins:
 
-Install, update and add plugins via [Vundle](https://github.com/VundleVim/Vundle.vim)
+    git clone https://github.com/jschomay/.vim.git ~/.vim
+    ln -s ~/.vim/vimrc ~/.vimrc
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+

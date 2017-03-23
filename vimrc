@@ -85,7 +85,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'gcmt/wildfire.vim'
-Plugin 'raichoo/purescript-vim'
 Plugin 'isRuslan/vim-es6'
 Plugin 'ElmCast/elm-vim'
 Plugin 'neovimhaskell/haskell-vim'
@@ -99,6 +98,7 @@ Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
+Plugin 'elixir-lang/vim-elixir'
 """
 
 " All of your Plugins must be added before the following line
@@ -464,38 +464,28 @@ au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:rbpt_colorpairs = [
-    \ ['brown',       'Gray93'],
-    \ ['brown',       'Gray60'],
-    \ ['brown',       'LightPink3'],
-    \ ['gray',        'DarkSeaGreen3'],
-    \ ['darkblue',    'Tan'],
-    \ ['darkgreen',   'LightSkyBlue3'],
-    \ ['darkmagenta', 'Thistle3'],
-    \ ['darkcyan',    'LightCyan3'],
+    \ ['red',         'RoyalBlue3'],
+    \ ['brown',       'SeaGreen3'],
+    \ ['blue',        'DarkOrchid3'],
+    \ ['gray',        'firebrick3'],
+    \ ['green',       'RoyalBlue3'],
+    \ ['magenta',     'SeaGreen3'],
+    \ ['cyan',        'DarkOrchid3'],
+    \ ['darkred',     'firebrick3'],
+    \ ['brown',       'RoyalBlue3'],
+    \ ['darkblue',    'DarkOrchid3'],
+    \ ['gray',        'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkmagenta', 'SeaGreen3'],
+    \ ['darkcyan',    'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
     \ ]
-
-" originals:
-    " \ ['red',         'RoyalBlue3'],
-    " \ ['brown',       'SeaGreen3'],
-    " \ ['blue',        'DarkOrchid3'],
-    " \ ['gray',        'firebrick3'],
-    " \ ['green',       'RoyalBlue3'],
-    " \ ['magenta',     'SeaGreen3'],
-    " \ ['cyan',        'DarkOrchid3'],
-    " \ ['darkred',     'firebrick3'],
-    " \ ['brown',       'RoyalBlue3'],
-    " \ ['darkblue',    'DarkOrchid3'],
-    " \ ['gray',        'firebrick3'],
-    " \ ['darkgreen',   'RoyalBlue3'],
-    " \ ['darkmagenta', 'SeaGreen3'],
-    " \ ['darkcyan',    'DarkOrchid3'],
-    " \ ['red',         'firebrick3'],
-    " \ ]
 
 au FileType clojure RainbowParenthesesToggleAll
 au FileType clojure RainbowParenthesesActivate
 
 
+nmap <leader>cl :%Eval <cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

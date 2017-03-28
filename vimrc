@@ -93,9 +93,6 @@ Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
 Plugin 'elixir-lang/vim-elixir'
@@ -462,33 +459,6 @@ au FileType elm nmap <leader>f :ElmFormat<cr>
 au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " au FileType elm nmap <leader>m <Plug>(elm-make-main)
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clojure
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:rbpt_colorpairs = [
-    \ ['red',         'RoyalBlue3'],
-    \ ['brown',       'SeaGreen3'],
-    \ ['blue',        'DarkOrchid3'],
-    \ ['gray',        'firebrick3'],
-    \ ['green',       'RoyalBlue3'],
-    \ ['magenta',     'SeaGreen3'],
-    \ ['cyan',        'DarkOrchid3'],
-    \ ['darkred',     'firebrick3'],
-    \ ['brown',       'RoyalBlue3'],
-    \ ['darkblue',    'DarkOrchid3'],
-    \ ['gray',        'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkmagenta', 'SeaGreen3'],
-    \ ['darkcyan',    'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
-au FileType clojure RainbowParenthesesToggleAll
-au FileType clojure RainbowParenthesesActivate
-
-
-nmap <leader>cl :%Eval <cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

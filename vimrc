@@ -85,6 +85,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'gcmt/wildfire.vim'
+Plugin 'jelera/vim-javascript-syntax'
 Plugin 'isRuslan/vim-es6'
 Plugin 'ElmCast/elm-vim'
 Plugin 'neovimhaskell/haskell-vim'
@@ -92,7 +93,7 @@ Plugin 'morhetz/gruvbox'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
-Plugin 'kien/rainbow_parentheses.vim'
+" Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
 Plugin 'elixir-lang/vim-elixir'
@@ -222,8 +223,7 @@ set cursorline
 " Enable syntax highlighting
 syntax enable
 
-" colorscheme gruvbox
-colorscheme base16-tomorrow-night
+colorscheme base16-solarized-dark
 
 
 " Set extra options when running in GUI mode

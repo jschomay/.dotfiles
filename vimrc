@@ -150,6 +150,7 @@ nmap <leader>v :vsplit <cr>
 nmap <leader>s :split <cr>
 
 nmap <leader>a :ALENextWrap <cr>
+nmap <leader>e :ALEDetail <cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

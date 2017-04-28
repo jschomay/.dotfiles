@@ -223,7 +223,7 @@ set cursorline
 " Enable syntax highlighting
 syntax enable
 
-colorscheme base16-solarized-dark
+colorscheme base16-tomorrow-night
 
 
 " Set extra options when running in GUI mode

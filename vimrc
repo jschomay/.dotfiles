@@ -99,6 +99,7 @@ Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
+Plugin 'sjl/vitality.vim'
 """
 
 " All of your Plugins must be added before the following line
@@ -131,6 +132,10 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+au FocusGained * checktime
+
+" Save on focus lost
+au FocusLost * silent! :wa
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file

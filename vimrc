@@ -85,20 +85,18 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'gcmt/wildfire.vim'
-Plugin 'raichoo/purescript-vim'
+Plugin 'jelera/vim-javascript-syntax'
 Plugin 'isRuslan/vim-es6'
 Plugin 'ElmCast/elm-vim'
 Plugin 'neovimhaskell/haskell-vim'
-Plugin 'morhetz/gruvbox'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
+Plugin 'raichoo/purescript-vim'
 """
 
 " All of your Plugins must be added before the following line
@@ -157,6 +155,8 @@ nmap <leader>a :ALENextWrap <cr>
 nmap <leader>e :ALEDetail <cr>
 
 
+" remove whitespace with keymap
+:nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -224,7 +224,6 @@ set cursorline
 " Enable syntax highlighting
 syntax enable
 
-" colorscheme gruvbox
 colorscheme base16-tomorrow-night
 
 
@@ -393,6 +392,8 @@ let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -458,43 +459,6 @@ au FileType elm nmap <leader>f :ElmFormat<cr>
 " au FileType elm nmap <leader>e <Plug>(elm-error-detail)
 au FileType elm nmap <leader>d <Plug>(elm-show-docs)
 " au FileType elm nmap <leader>m <Plug>(elm-make-main)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clojure
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:rbpt_colorpairs = [
-    \ ['brown',       'Gray93'],
-    \ ['brown',       'Gray60'],
-    \ ['brown',       'LightPink3'],
-    \ ['gray',        'DarkSeaGreen3'],
-    \ ['darkblue',    'Tan'],
-    \ ['darkgreen',   'LightSkyBlue3'],
-    \ ['darkmagenta', 'Thistle3'],
-    \ ['darkcyan',    'LightCyan3'],
-    \ ]
-
-" originals:
-    " \ ['red',         'RoyalBlue3'],
-    " \ ['brown',       'SeaGreen3'],
-    " \ ['blue',        'DarkOrchid3'],
-    " \ ['gray',        'firebrick3'],
-    " \ ['green',       'RoyalBlue3'],
-    " \ ['magenta',     'SeaGreen3'],
-    " \ ['cyan',        'DarkOrchid3'],
-    " \ ['darkred',     'firebrick3'],
-    " \ ['brown',       'RoyalBlue3'],
-    " \ ['darkblue',    'DarkOrchid3'],
-    " \ ['gray',        'firebrick3'],
-    " \ ['darkgreen',   'RoyalBlue3'],
-    " \ ['darkmagenta', 'SeaGreen3'],
-    " \ ['darkcyan',    'DarkOrchid3'],
-    " \ ['red',         'firebrick3'],
-    " \ ]
-
-au FileType clojure RainbowParenthesesToggleAll
-au FileType clojure RainbowParenthesesActivate
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

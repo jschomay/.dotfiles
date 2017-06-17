@@ -89,15 +89,14 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'isRuslan/vim-es6'
 Plugin 'ElmCast/elm-vim'
 Plugin 'neovimhaskell/haskell-vim'
-Plugin 'morhetz/gruvbox'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
-" Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'slashmili/alchemist.vim'
+Plugin 'raichoo/purescript-vim'
 """
 
 " All of your Plugins must be added before the following line
@@ -156,6 +155,8 @@ nmap <leader>a :ALENextWrap <cr>
 nmap <leader>e :ALEDetail <cr>
 
 
+" remove whitespace with keymap
+:nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

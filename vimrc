@@ -99,6 +99,10 @@ Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
+Plugin 'bhurlow/vim-parinfer'
+Plugin 'venantius/vim-cljfmt'
 """
 
 " All of your Plugins must be added before the following line
@@ -439,6 +443,8 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 set formatoptions-=c formatoptions-=r formatoptions-=o
+
+set cursorcolumn
 
 " change cursor on insert mode (works in OSX iTerm)
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"

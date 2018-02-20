@@ -1,41 +1,5 @@
-" Version: 
-"       5.0 - 29/05/12 15:43:36
+" Modified from http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
 "
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" (With modification and updates by Jeff)
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -59,22 +23,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
-
 """ My plugins
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'itchyny/lightline.vim'
@@ -85,11 +33,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'gcmt/wildfire.vim'
-Plugin 'raichoo/purescript-vim'
 Plugin 'isRuslan/vim-es6'
 Plugin 'ElmCast/elm-vim'
-Plugin 'neovimhaskell/haskell-vim'
-Plugin 'morhetz/gruvbox'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
@@ -100,6 +45,7 @@ Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'mhinz/vim-mix-format'
 Plugin 'slashmili/alchemist.vim'
 Plugin 'bhurlow/vim-parinfer'
 Plugin 'venantius/vim-cljfmt'
@@ -298,10 +244,6 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
@@ -313,15 +255,6 @@ map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -459,6 +392,14 @@ set clipboard=
 set mouse=a
 
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Elixir 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:mix_format_on_save = 0
+
+au FileType elixir nmap <leader>f :MixFormat<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Elm
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -507,9 +448,10 @@ let g:rbpt_colorpairs = [
     " \ ['red',         'firebrick3'],
     " \ ]
 
-au FileType clojure RainbowParenthesesToggleAll
 au FileType clojure RainbowParenthesesActivate
-
+au FileType clojure RainbowParenthesesLoadRound
+au FileType clojure RainbowParenthesesLoadSquare
+au FileType clojure RainbowParenthesesLoadBraces
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

@@ -1,0 +1,14 @@
+# This is Git's per-user configuration file.
+[user]
+  name = 
+  email = 
+[push]
+	default = simple
+[core]
+	editor = vim
+[alias]
+	co = checkout
+[mergetool]
+	keepBackup = false
+[pull]
+	rebase = preserve

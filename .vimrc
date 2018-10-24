@@ -44,11 +44,15 @@ Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'tpope/vim-fireplace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'mhinz/vim-mix-format'
-Plugin 'slashmili/alchemist.vim'
 Plugin 'bhurlow/vim-parinfer'
 Plugin 'venantius/vim-cljfmt'
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'mbbill/undotree'
+Plugin 'tpope/vim-obsession'
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
+Plugin 'aserebryakov/vim-todo-lists'
+Plugin 'jgdavey/tslime.vim'
 """
 
 " All of your Plugins must be added before the following line
@@ -98,13 +102,21 @@ nmap <leader>w :wa<cr>
 nmap <leader>ev :vsplit $MYVIMRC<cr>
 nmap <leader>sv :source $MYVIMRC<cr>
 
-set tags=tags;/
+set tags=tags,.tags,client/.tags
 
 nmap <leader>v :vsplit <cr>
 nmap <leader>s :split <cr>
 
 nmap <leader>a :ALENextWrap <cr>
 nmap <leader>e :ALEDetail <cr>
+
+let g:ale_elixir_elixir_ls_release = '/Users/schomay/elixir-ls/rel'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'elixir': ['mix_format'],
+\}
+let g:ale_fix_on_save = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -218,8 +230,10 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
+
+au FileType css setl sw=2 sts=2 et
 
 " Linebreak on 500 characters
 set lbr
@@ -324,6 +338,8 @@ map <leader>gr :grep! -R  .<left><left>
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
+nnoremap <silent> gr :Ggrep <cword><CR>
+
 " Do :help cope if you are unsure what cope is. It's super useful!
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
@@ -391,6 +407,10 @@ set clipboard=
 
 set mouse=a
 
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+nmap <C-c>r <Plug>SetTmuxVars
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

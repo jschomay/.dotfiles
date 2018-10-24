@@ -46,6 +46,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'sjl/vitality.vim'
 Plugin 'bhurlow/vim-parinfer'
 Plugin 'venantius/vim-cljfmt'
+Plugin 'fbeline/kibit-vim'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'mbbill/undotree'
 Plugin 'tpope/vim-obsession'
@@ -53,6 +54,8 @@ Plugin 'elixir-editors/vim-elixir'
 Plugin 'slashmili/alchemist.vim'
 Plugin 'aserebryakov/vim-todo-lists'
 Plugin 'jgdavey/tslime.vim'
+Plugin 'junegunn/goyo.vim'
+Plugin 'romainl/vim-devdocs'
 """
 
 " All of your Plugins must be added before the following line
@@ -147,7 +150,7 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
@@ -205,6 +208,8 @@ if has("gui_running")
 endif
 
 
+hi clear SpellBad
+hi SpellBad cterm=underline
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -277,7 +282,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -414,7 +419,7 @@ nmap <C-c>r <Plug>SetTmuxVars
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Elixir 
+" Elixir
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:mix_format_on_save = 0
 

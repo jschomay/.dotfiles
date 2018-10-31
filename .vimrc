@@ -56,6 +56,7 @@ Plugin 'aserebryakov/vim-todo-lists'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'romainl/vim-devdocs'
+Plugin 'christoomey/vim-tmux-navigator'
 """
 
 " All of your Plugins must be added before the following line
@@ -92,6 +93,8 @@ au FocusGained * checktime
 
 " Save on focus lost
 au FocusLost * silent! :wa
+" Write all buffers before navigating from Vim to tmux pane (using vim-tmux-navigator)
+let g:tmux_navigator_save_on_switch = 2
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -109,18 +112,6 @@ set tags=tags,.tags,client/.tags
 
 nmap <leader>v :vsplit <cr>
 nmap <leader>s :split <cr>
-
-nmap <leader>a :ALENextWrap <cr>
-nmap <leader>e :ALEDetail <cr>
-
-let g:ale_elixir_elixir_ls_release = '/Users/schomay/elixir-ls/rel'
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'elixir': ['mix_format'],
-\}
-let g:ale_fix_on_save = 1
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -209,7 +200,7 @@ endif
 
 
 hi clear SpellBad
-hi SpellBad cterm=underline
+hi SpellBad cterm=underline gui=underline
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -419,11 +410,26 @@ nmap <C-c>r <Plug>SetTmuxVars
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Elixir
+" Ale
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:mix_format_on_save = 0
 
-au FileType elixir nmap <leader>f :MixFormat<cr>
+
+nmap <leader>a :ALENextWrap <cr>
+nmap <leader>e :ALEDetail <cr>
+
+let g:ale_elixir_elixir_ls_release = '/Users/schomay/elixir-ls/rel'
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'elixir': ['mix_format'],
+\}
+let g:ale_fix_on_save = 1
+
+let g:ale_linters = {
+\   'elixir': ['credo', 'elixir-ls'],
+\}
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Elm

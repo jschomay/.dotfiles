@@ -422,11 +422,13 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
 \   'elixir': ['mix_format'],
+\   'elm': ['elm-format'],
 \}
 let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
 \   'elixir': ['credo', 'elixir-ls'],
+\   'elm': ['make'],
 \}
 
 
@@ -435,16 +437,13 @@ let g:ale_linters = {
 " Elm
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:elm_format_autosave = 1
+let g:elm_format_autosave = 0
 let g:elm_setup_keybindings = 0
-let g:elm_jump_to_error = 1
+let g:elm_jump_to_error = 0
 let g:elm_detailed_complete = 1
 let g:elm_make_show_warnings = 1
 
-au FileType elm nmap <leader>f :ElmFormat<cr>
-" au FileType elm nmap <leader>e <Plug>(elm-error-detail)
-au FileType elm nmap <leader>d <Plug>(elm-show-docs)
-" au FileType elm nmap <leader>m <Plug>(elm-make-main)
+au FileType elm nmap K <Plug>(elm-show-docs)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clojure

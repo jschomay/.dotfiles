@@ -38,7 +38,7 @@ Plugin 'ElmCast/elm-vim'
 Plugin 'w0rp/ale'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'craigemery/vim-autotag'
-Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'tpope/vim-fireplace'
@@ -52,11 +52,14 @@ Plugin 'mbbill/undotree'
 Plugin 'tpope/vim-obsession'
 Plugin 'elixir-editors/vim-elixir'
 Plugin 'slashmili/alchemist.vim'
-Plugin 'aserebryakov/vim-todo-lists'
+Plugin 'jceb/vim-orgmode'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'romainl/vim-devdocs'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'junegunn/vim-peekaboo'
+Plugin 'mhinz/vim-signify'
+Plugin 'Shougo/deoplete.nvim'
 """
 
 " All of your Plugins must be added before the following line
@@ -229,7 +232,9 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
+au FileType javascript setl sw=2 sts=2 et
 au FileType css setl sw=2 sts=2 et
+au FileType elixir setl sw=2 sts=2 et
 
 " Linebreak on 500 characters
 set lbr
@@ -408,6 +413,16 @@ let g:tslime_always_current_session = 1
 let g:tslime_always_current_window = 1
 nmap <C-c>r <Plug>SetTmuxVars
 
+let g:signify_vcs_list = [ 'git' ]
+let g:signify_update_on_focusgained = 1
+
+autocmd BufReadPost *.org setlocal textwidth=500
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('auto_complete_delay', 200)
+
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ale
@@ -445,43 +460,6 @@ let g:elm_make_show_warnings = 1
 
 au FileType elm nmap K <Plug>(elm-show-docs)
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clojure
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:rbpt_colorpairs = [
-    \ ['brown',       'Gray93'],
-    \ ['brown',       'Gray60'],
-    \ ['brown',       'LightPink3'],
-    \ ['gray',        'DarkSeaGreen3'],
-    \ ['darkblue',    'Tan'],
-    \ ['darkgreen',   'LightSkyBlue3'],
-    \ ['darkmagenta', 'Thistle3'],
-    \ ['darkcyan',    'LightCyan3'],
-    \ ]
-
-" originals:
-    " \ ['red',         'RoyalBlue3'],
-    " \ ['brown',       'SeaGreen3'],
-    " \ ['blue',        'DarkOrchid3'],
-    " \ ['gray',        'firebrick3'],
-    " \ ['green',       'RoyalBlue3'],
-    " \ ['magenta',     'SeaGreen3'],
-    " \ ['cyan',        'DarkOrchid3'],
-    " \ ['darkred',     'firebrick3'],
-    " \ ['brown',       'RoyalBlue3'],
-    " \ ['darkblue',    'DarkOrchid3'],
-    " \ ['gray',        'firebrick3'],
-    " \ ['darkgreen',   'RoyalBlue3'],
-    " \ ['darkmagenta', 'SeaGreen3'],
-    " \ ['darkcyan',    'DarkOrchid3'],
-    " \ ['red',         'firebrick3'],
-    " \ ]
-
-au FileType clojure RainbowParenthesesActivate
-au FileType clojure RainbowParenthesesLoadRound
-au FileType clojure RainbowParenthesesLoadSquare
-au FileType clojure RainbowParenthesesLoadBraces
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -558,3 +536,15 @@ function! QuickFixOpenAll()
         let s:prev_val = s:curr_val
     endfor
 endfunction
+
+
+function! RandomColorScheme()
+  let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+  let components = split(reltimestr(reltime()), '\.')
+  let microseconds = components[-1] + 0
+  exe 'so ' . mycolors[microseconds % len(mycolors)]
+  unlet mycolors
+  colorscheme
+endfunction
+
+:command! NewColor call RandomColorScheme()

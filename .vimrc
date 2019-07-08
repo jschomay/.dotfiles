@@ -57,9 +57,11 @@ Plugin 'jgdavey/tslime.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'romainl/vim-devdocs'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'junegunn/limelight.vim'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'mhinz/vim-signify'
 Plugin 'Shougo/deoplete.nvim'
+Plugin 'flazz/vim-colorschemes'
 """
 
 " All of your Plugins must be added before the following line
@@ -392,7 +394,9 @@ map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
-set formatoptions-=c formatoptions-=r formatoptions-=o
+" formatting - text width 85, auto formatting, but only in comments
+set tw=85
+autocmd BufNewFile,BufRead * setlocal fo+=w fo+=r fo-=t fo-=o fo-=l
 
 set cursorcolumn
 
@@ -540,11 +544,20 @@ endfunction
 
 function! RandomColorScheme()
   let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+
   let components = split(reltimestr(reltime()), '\.')
   let microseconds = components[-1] + 0
-  exe 'so ' . mycolors[microseconds % len(mycolors)]
+
+  let mycol = mycolors[microseconds % len(mycolors)]
+  let mycol = split(mycol, '/')[-1]
+  let mycol = substitute(mycol, '\.vim', '', '')
+
+  exec "colorscheme " . mycol
+  " display it
+  exec "colorscheme"
+
   unlet mycolors
-  colorscheme
+  unlet mycol
 endfunction
 
 :command! NewColor call RandomColorScheme()

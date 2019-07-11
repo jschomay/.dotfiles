@@ -12,6 +12,4 @@ ln -s ~/.dotfiles/.git-prompt.sh ~
 ln -s ~/.dotfiles/.vimrc ~
 
 # clone plugin managers
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 mkdir ~/tmux && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-

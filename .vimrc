@@ -7,77 +7,62 @@
 " use terminal colors (needs to run before anythign else)
 set termguicolors
 
+set nocompatible              " be iMproved, required
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle package manager
+" Vim-Plug package manager
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" auto install
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-""" My plugins
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'SearchComplete'
-Plugin 'ervandew/supertab'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-vinegar'
-Plugin 'gcmt/wildfire.vim'
-Plugin 'isRuslan/vim-es6'
-Plugin 'ElmCast/elm-vim'
-Plugin 'w0rp/ale'
-Plugin 'ajh17/VimCompletesMe'
-Plugin 'craigemery/vim-autotag'
-Plugin 'junegunn/rainbow_parentheses.vim'
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-Plugin 'tpope/vim-fireplace'
-Plugin 'chriskempson/base16-vim'
-Plugin 'sjl/vitality.vim'
-Plugin 'bhurlow/vim-parinfer'
-Plugin 'venantius/vim-cljfmt'
-Plugin 'fbeline/kibit-vim'
-Plugin 'tmux-plugins/vim-tmux-focus-events'
-Plugin 'mbbill/undotree'
-Plugin 'tpope/vim-obsession'
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'slashmili/alchemist.vim'
-Plugin 'jceb/vim-orgmode'
-Plugin 'jgdavey/tslime.vim'
-Plugin 'junegunn/goyo.vim'
-Plugin 'romainl/vim-devdocs'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'junegunn/limelight.vim'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'mhinz/vim-signify'
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'flazz/vim-colorschemes'
-"""
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+call plug#begin('~/.vim/bundle')
+Plug 'junegunn/vim-plug' " registers plugin for help text, not needed for install
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'vim-scripts/SearchComplete'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
+Plug 'gcmt/wildfire.vim'
+Plug 'isRuslan/vim-es6'
+Plug 'antew/vim-elm-language-server'
+Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ajh17/VimCompletesMe'
+Plug 'craigemery/vim-autotag'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'tpope/vim-fireplace'
+Plug 'chriskempson/base16-vim'
+Plug 'sjl/vitality.vim'
+Plug 'bhurlow/vim-parinfer'
+Plug 'venantius/vim-cljfmt'
+Plug 'fbeline/kibit-vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-obsession'
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
+Plug 'jceb/vim-orgmode'
+Plug 'jgdavey/tslime.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'romainl/vim-devdocs'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'mhinz/vim-signify'
+Plug 'Shougo/deoplete.nvim'
+Plug 'flazz/vim-colorschemes'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

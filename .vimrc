@@ -27,20 +27,14 @@ endif
 
 call plug#begin('~/.vim/bundle')
 Plug 'junegunn/vim-plug' " registers plugin for help text, not needed for install
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'vim-scripts/SearchComplete'
-Plug 'ervandew/supertab'
+" Plug 'vim-scripts/SearchComplete'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'gcmt/wildfire.vim'
-Plug 'isRuslan/vim-es6'
 Plug 'antew/vim-elm-language-server'
-Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ajh17/VimCompletesMe'
 Plug 'craigemery/vim-autotag'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'guns/vim-sexp'
@@ -49,25 +43,28 @@ Plug 'tpope/vim-fireplace'
 Plug 'chriskempson/base16-vim'
 Plug 'sjl/vitality.vim'
 Plug 'bhurlow/vim-parinfer'
-Plug 'venantius/vim-cljfmt'
-Plug 'fbeline/kibit-vim'
+" Plug 'venantius/vim-cljfmt'
+" Plug 'fbeline/kibit-vim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-obsession'
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
 Plug 'jceb/vim-orgmode'
-Plug 'jgdavey/tslime.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-peekaboo'
-Plug 'mhinz/vim-signify'
-Plug 'Shougo/deoplete.nvim'
-Plug 'flazz/vim-colorschemes'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'benmills/vimux'
+Plug 'janko/vim-test'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
+" coc extentions
+Plug 'neoclide/diagnostic', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/lists', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/marketplace', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -101,7 +98,7 @@ let g:mapleader = ","
 nmap <leader>w :wa<cr>
 
 " quick-edit vimrc (http://learnvimscriptthehardway.stevelosh.com/chapters/07.html)
-nmap <leader>ev :vsplit $MYVIMRC<cr>
+nmap <leader>ev :tabedit $MYVIMRC<cr>
 nmap <leader>sv :source $MYVIMRC<cr>
 
 set tags=tags,.tags,client/.tags
@@ -115,6 +112,8 @@ nmap <leader>s :split <cr>
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
+" set cursorcolumn
+
 " Turn on the WiLd menu
 set wildmenu
 
@@ -126,6 +125,8 @@ set ruler
 
 " Height of the command bar
 set cmdheight=1
+
+set signcolumn=yes
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -176,8 +177,7 @@ set cursorline
 " Enable syntax highlighting
 syntax enable
 
-" colorscheme gruvbox
-colorscheme base16-tomorrow-night
+colorscheme base16-gruvbox-dark-medium
 
 
 " Set extra options when running in GUI mode
@@ -238,13 +238,6 @@ set si "Smart indent
 set wrap "Wrap lines
 
 """"""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -295,13 +288,12 @@ set laststatus=2
 
 " Format the status line
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
       \ },
       \ }
 
@@ -310,29 +302,11 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map 0 ^
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => grep searching and cope displaying
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open grep and put the cursor in the right position
-map <leader>gr :grep! -R  .<left><left>
-
-" Grep as a proper vim command
-:nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-
-nnoremap <silent> gr :Ggrep <cword><CR>
+nnoremap <silent> ,gr :Ggrep <cword><CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 map <leader>cc :botright cope<cr>
@@ -340,11 +314,6 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
-" Ctrl+P
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-let g:ctrlp_working_path_mode = 'ra'
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -356,21 +325,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scripbble
-map <leader>q :e ~/buffer<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -379,10 +336,12 @@ map <leader>pp :setlocal paste!<cr>
 map <leader>p "0p
 map <leader>P "0P
 
-" Fullscreen
-map <silent> <F11> :exe "!wmctrl -r ".v:servername." -b toggle,fullscreen"<CR>
+" show yank list (via Coc) when specifying a buffer
+nnoremap <silent> "  :<C-u>CocList -A --normal yank<cr>
+inoremap <silent> <C-r>  <Esc>:<C-u>CocList -A --normal yank<cr>
 
 autocmd BufReadPost fugitive://* set bufhidden=delete
+
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " formatting - text width 85, auto formatting, but only in comments
@@ -403,90 +362,96 @@ set clipboard=
 
 set mouse=a
 
-vmap <C-c><C-c> <Plug>SendSelectionToTmux
-let g:tslime_always_current_session = 1
-let g:tslime_always_current_window = 1
-nmap <C-c>r <Plug>SetTmuxVars
 
-let g:signify_vcs_list = [ 'git' ]
-let g:signify_update_on_focusgained = 1
+" vimux 'slime'
+function! VimuxSlime()
+    call VimuxSendText(@v)
+    call VimuxSendKeys("Enter")
+endfunction
+
+ " If text is selected, save it in the v buffer and send that buffer it to tmux
+ vmap <C-c><C-c> "vy :call VimuxSlime()<CR>
+ " Select current paragraph and send it to tmux
+ nmap <C-c><C-c> vip<C-c><C-c>
 
 autocmd BufReadPost *.org setlocal textwidth=500
-
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_complete_delay', 200)
 
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ale
+" Testing
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> <C-t><C-n> :TestNearest<CR>
+nmap <silent> <C-t><C-f> :TestFile<CR>
+nmap <silent> <C-t><C-s> :TestSuite<CR>
+nmap <silent> <C-t><C-l> :TestLast<CR>
+nmap <silent> <C-t><C-g> :TestVisit<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Git
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" navigate chunks of current buffer
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Linting / Completion / Snippets / LSP
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-nmap <leader>a :ALENextWrap <cr>
-nmap <leader>e :ALEDetail <cr>
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-let g:ale_elixir_elixir_ls_release = '/Users/schomay/elixir-ls/rel'
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'elixir': ['mix_format'],
-\   'elm': ['elm-format'],
-\}
-let g:ale_fix_on_save = 1
+" close preview window
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-let g:ale_linters = {
-\   'elixir': ['credo', 'elixir-ls'],
-\   'elm': ['make'],
-\}
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
 
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Elm
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+nmap <silent> ,e <Plug>(coc-diagnostic-info)
 
-let g:elm_format_autosave = 0
-let g:elm_setup_keybindings = 0
-let g:elm_jump_to_error = 0
-let g:elm_detailed_complete = 1
-let g:elm_make_show_warnings = 1
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-au FileType elm nmap K <Plug>(elm-show-docs)
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-function! VisualSelection(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
 
 " Returns true if paste mode is enabled
 function! HasPaste()

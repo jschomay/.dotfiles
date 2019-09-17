@@ -28,7 +28,7 @@ endif
 call plug#begin('~/.vim/bundle')
 Plug 'junegunn/vim-plug' " registers plugin for help text, not needed for install
 Plug 'itchyny/lightline.vim'
-" Plug 'vim-scripts/SearchComplete'
+Plug 'vim-scripts/SearchComplete'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -54,17 +54,21 @@ Plug 'romainl/vim-devdocs'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'janko/vim-test'
+Plug 'Shougo/echodoc.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 " coc extentions
-Plug 'neoclide/diagnostic', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/git', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/yank', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/marketplace', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-diagnostic', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -241,6 +245,9 @@ set wrap "Wrap lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <silent> <C-p> :GFiles<CR>
+
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
@@ -397,13 +404,18 @@ nmap <silent> <C-t><C-g> :TestVisit<CR>
 " navigate chunks of current buffer
 nmap [c <Plug>(coc-git-prevchunk)
 nmap ]c <Plug>(coc-git-nextchunk)
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
+" git status with fzf
+nnoremap <silent> gst :GFiles?<CR>
+nnoremap <silent> ,gi :CocCommand git.chunkInfo<CR>
+nnoremap <silent> ,gu :CocCommand git.chunkUndo<CR>
+nnoremap <silent> ,ga :CocCommand git.chunkStage<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Linting / Completion / Snippets / LSP
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'virtual'
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
@@ -421,9 +433,11 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> ]e <Plug>(coc-diagnostic-next)
+" Use `[d` and `]d` to navigate diagnostics (`e` jumps directly to errors)
+nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
+nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 nmap <silent> ,e <Plug>(coc-diagnostic-info)
 
 " Remap keys for gotos

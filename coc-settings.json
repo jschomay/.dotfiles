@@ -24,8 +24,6 @@
   "codeLens.enable": true,
   "eslint.autoFixOnSave": true,
   "diagnostic-languageserver.filetypes": {
-    "org": ["languagetool"],
-    "markdown": ["languagetool", "markdownlint"],
     "elixir": ["mix_credo", "mix_credo_compile"],
     "eelixir": ["mix_credo", "mix_credo_compile"]
   },

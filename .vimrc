@@ -334,12 +334,8 @@ map <leader>ss :setlocal spell!<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" quick paste last yank
-map <leader>p "0p
-map <leader>P "0P
-
-" show yank list (via Coc) when specifying a buffer
-nnoremap <silent> "  :<C-u>CocList -A --normal yank<cr>
+" show yank list (via Coc) with leader-p, or on `"` in insert
+map <leader>p :<C-u>CocList -A --normal yank<cr>
 inoremap <silent> <C-r>  <Esc>:<C-u>CocList -A --normal yank<cr>
 
 autocmd BufReadPost fugitive://* set bufhidden=delete

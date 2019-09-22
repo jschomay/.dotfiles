@@ -1,0 +1,34 @@
+{
+  "suggest.timeout": 500,
+  "coc.preferences.hoverTarget": "preview",
+  "suggest.enablePreview": true,
+  "suggest.echodocSupport": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "elixir",
+    "eelixir",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "languageserver": {
+    "elixirLS": {
+      "command": "/Users/schomay/elixir-ls/rel/language_server.sh",
+      "filetypes": ["elixir", "eelixir"]
+    },
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"]
+    }
+  },
+  "codeLens.enable": true,
+  "eslint.autoFixOnSave": true,
+  "diagnostic-languageserver.filetypes": {
+    "elixir": ["mix_credo", "mix_credo_compile"],
+    "eelixir": ["mix_credo", "mix_credo_compile"]
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "elixir": "mix_format",
+    "eelixir": "mix_format"
+  }
+}

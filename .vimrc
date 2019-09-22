@@ -307,7 +307,7 @@ map 0 ^
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => grep searching and cope displaying
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> ,gr :Ggrep <cword><CR>
+nnoremap <silent> <leader>gr :Ggrep <cword><CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 map <leader>cc :botright cope<cr>
@@ -381,6 +381,8 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 " Testing
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let test#strategy = 'vimux'
+
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
 nmap <silent> <C-t><C-n> :TestNearest<CR>
 nmap <silent> <C-t><C-f> :TestFile<CR>
@@ -397,9 +399,9 @@ nmap [c <Plug>(coc-git-prevchunk)
 nmap ]c <Plug>(coc-git-nextchunk)
 " git status with fzf
 nnoremap <silent> gst :GFiles?<CR>
-nnoremap <silent> ,gi :CocCommand git.chunkInfo<CR>
-nnoremap <silent> ,gu :CocCommand git.chunkUndo<CR>
-nnoremap <silent> ,ga :CocCommand git.chunkStage<CR>
+nnoremap <silent> <leader>gi :CocCommand git.chunkInfo<CR>
+nnoremap <silent> <leader>gu :CocCommand git.chunkUndo<CR>
+nnoremap <silent> <leader>ga :CocCommand git.chunkStage<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Linting / Completion / Snippets / LSP
@@ -429,7 +431,8 @@ nmap <silent> [e <Plug>(coc-diagnostic-prev-error)
 nmap <silent> ]e <Plug>(coc-diagnostic-next-error)
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
-nmap <silent> ,e <Plug>(coc-diagnostic-info)
+nmap <silent> <leader>e <Plug>(coc-diagnostic-info)
+nnoremap <silent> <leader>d  :<C-u>CocList -A --normal diagnostics<cr>
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)

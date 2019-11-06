@@ -34,7 +34,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'gcmt/wildfire.vim'
-Plug 'antew/vim-elm-language-server'
 Plug 'craigemery/vim-autotag'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'guns/vim-sexp'
@@ -334,9 +333,34 @@ map <leader>ss :setlocal spell!<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" show yank list (via Coc) with leader-p, or on `"` in insert
+" show yank list (via Coc) with leader-p, otherwise :registers with FZF
 map <leader>p :<C-u>CocList -A --normal yank<cr>
-inoremap <silent> <C-r>  <Esc>:<C-u>CocList -A --normal yank<cr>
+inoremap <silent> <C-r>  <Esc>:Registers<cr>
+
+function! GetRegisters()
+    redir => cout
+    silent registers
+    redir END
+    return split(cout, "\n")[1:]
+endfunction
+function! UseRegister(line)
+    let var_a = getreg(a:line[1], 1, 1)
+    " let var_amode = getregtype(a:line[1])
+    " call setreg('"', var_a, var_amode)
+    exe 'normal! o'.var_a[0]
+endfunction
+command! Registers call fzf#run(fzf#wrap({
+            \ 'source': GetRegisters(),
+            \ 'sink': function('UseRegister')}))
+
+function! FzfSpellSink(word)
+    exe 'normal! "_ciw'.a:word
+endfunction
+function! FzfSpell()
+    let suggestions = spellsuggest(expand("<cword>"))
+    return fzf#run({'source': suggestions, 'sink': function("FzfSpellSink"), 'down': 10 })
+endfunction
+nnoremap z= :call FzfSpell()<CR>
 
 autocmd BufReadPost fugitive://* set bufhidden=delete
 

@@ -63,7 +63,7 @@ Plug 'iamcco/coc-diagnostic', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
@@ -333,8 +333,8 @@ map <leader>ss :setlocal spell!<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-" show yank list (via Coc) with leader-p, otherwise :registers with FZF
-map <leader>p :<C-u>CocList -A --normal yank<cr>
+" show yank list (via FZF)
+map <leader>p :Registers<cr>
 inoremap <silent> <C-r>  <Esc>:Registers<cr>
 
 function! GetRegisters()
@@ -531,7 +531,7 @@ endfunction
 
 
 function! RandomColorScheme()
-  let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+  let mycolors = split(globpath(&rtp,"colors/*.vim"),"\n")
 
   let components = split(reltimestr(reltime()), '\.')
   let microseconds = components[-1] + 0

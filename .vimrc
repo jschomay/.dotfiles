@@ -225,8 +225,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 au FileType javascript setl sw=2 sts=2 et
 au FileType css setl sw=2 sts=2 et
@@ -362,13 +362,25 @@ function! FzfSpell()
 endfunction
 nnoremap z= :call FzfSpell()<CR>
 
+nmap <leader>f :Lines<cr>
+
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    keepjumps %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
 " formatting - text width 85, auto formatting, but only in comments
 set tw=85
-autocmd BufNewFile,BufRead * setlocal fo+=w fo+=r fo-=t fo-=o fo-=l
+set fo=jancqrw
+autocmd BufNewFile,BufRead markdown setlocal fo+=t
 
 set cursorcolumn
 
@@ -396,7 +408,14 @@ endfunction
  " Select current paragraph and send it to tmux
  nmap <C-c><C-c> vip<C-c><C-c>
 
+nmap <C-c><C-l> :wa <bar> VimuxRunLastCommand<CR>
+
 autocmd BufReadPost *.org setlocal textwidth=500
+autocmd BufReadPost *.org hi Folded guibg=NONE
+let g:org_heading_shade_leading_stars = 0
+  let g:org_heading_highlight_colors = ['Title', 'Constant', 'Identifier',
+    \   'Type', 'Special']
+    " \   'Statement', 'PreProc', 'Type', 'Special']
 
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
@@ -408,11 +427,11 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let test#strategy = 'vimux'
 
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-nmap <silent> <C-t><C-n> :TestNearest<CR>
-nmap <silent> <C-t><C-f> :TestFile<CR>
-nmap <silent> <C-t><C-s> :TestSuite<CR>
-nmap <silent> <C-t><C-l> :TestLast<CR>
-nmap <silent> <C-t><C-g> :TestVisit<CR>
+nmap <silent> <C-t><C-n> :wa <bar> TestNearest<CR>
+nmap <silent> <C-t><C-f> :wa <bar> TestFile<CR>
+nmap <silent> <C-t><C-s> :wa <bar> TestSuite<CR>
+nmap <silent> <C-t><C-l> :wa <bar> TestLast<CR>
+nmap <silent> <C-t><C-g> :wa <bar> TestVisit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Git
@@ -432,7 +451,7 @@ nnoremap <silent> <leader>ga :CocCommand git.chunkStage<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'virtual'
+let g:echodoc#type = 'echo'
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.

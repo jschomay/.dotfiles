@@ -68,6 +68,12 @@ Plug 'fannheyward/coc-marketplace', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'windwp/nvim-ts-autotag'
+
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -293,7 +299,7 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
+      \   'gitbranch': 'fugitive#head'
       \ },
       \ }
 
@@ -362,7 +368,12 @@ function! FzfSpell()
 endfunction
 nnoremap z= :call FzfSpell()<CR>
 
-nmap <leader>f :Lines<cr>
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+nmap <leader>f :GGrep<cr>
 
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
@@ -431,6 +442,7 @@ nmap <silent> <C-t><C-n> :wa <bar> TestNearest<CR>
 nmap <silent> <C-t><C-f> :wa <bar> TestFile<CR>
 nmap <silent> <C-t><C-s> :wa <bar> TestSuite<CR>
 nmap <silent> <C-t><C-l> :wa <bar> TestLast<CR>
+nmap <silent> <C-t><C-t> :wa <bar> TestLast<CR>
 nmap <silent> <C-t><C-g> :wa <bar> TestVisit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

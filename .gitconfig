@@ -3,12 +3,25 @@
   name = 
   email = 
 [push]
-	default = simple
+	default = current
 [core]
-	editor = vim
+	editor = nvim
 [alias]
 	co = checkout
 [mergetool]
 	keepBackup = false
+	hideResolved = true
+[merge]
+	tool = nvimdiff2
+	conflictstyle = diff3
 [pull]
 	rebase = preserve
+[init]
+	defaultBranch = main
+[difftool]
+    prompt = true
+[difftool "nvimdiff2"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+		hideResolved = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/

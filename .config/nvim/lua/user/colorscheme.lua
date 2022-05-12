@@ -1,6 +1,8 @@
 vim.cmd [[
 try
-  colorscheme darkplus
+  " setting a neovim theme here messes up other colorschemes
+  " setting it manually is fine
+  colorscheme onedark
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
   set background=dark

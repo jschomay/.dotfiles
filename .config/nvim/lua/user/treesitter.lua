@@ -29,4 +29,9 @@ configs.setup {
       node_decremental = "grm",
     },
   },
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+    -- [options]
+  },
 }

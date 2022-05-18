@@ -32,7 +32,7 @@ vim.cmd [[
   " Autoformat
   augroup _lsp
     autocmd!
-    autocmd BufWritePre * lua vim.lsp.buf.formatting()
+    autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
   augroup end
 
   " Set to auto read when a file is changed from the outside
@@ -43,4 +43,10 @@ vim.cmd [[
   au FocusLost * silent! :wa
   " Write all buffers before navigating from Vim to tmux pane (using vim-tmux-navigator)
   let g:tmux_navigator_save_on_switch = 2
+
+  " % matchwords for Elixir
+  autocmd FileType elixir let b:match_words = '\<\%(case\|cond\|if\|unless\|try\|loop\|receive\|fn\|with\|' .
+      \ 'defmodule\|defimpl\|defmacro\|defdelegate\|defexception\|defcallback\|defoverridable\|defp\|def\|test\)\>=\@!:' .
+      \ '\<\%(else\|elsif\|catch\|after\|rescue\|\-\)\>:' .
+      \ '\<end\>,{:},\[:\],(:)'
 ]]

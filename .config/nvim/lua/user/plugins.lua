@@ -105,6 +105,9 @@ return packer.startup(function(use)
   -- UI/nav
   use "ggandor/lightspeed.nvim"
 
+  -- misc
+  use "nvim-orgmode/orgmode"
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

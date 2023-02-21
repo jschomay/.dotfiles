@@ -11,6 +11,7 @@ ln -s ~/.dotfiles/.gitconfig ~
 ln -s ~/.dotfiles/.git-prompt.sh ~
 ln -s ~/.dotfiles/.vimrc ~
 ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
+ln -s ~/.dotfiles/.config/lvim/config.lua ~/.config/lvim/config.lua
 
 # clone plugin managers
 mkdir ~/tmux && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

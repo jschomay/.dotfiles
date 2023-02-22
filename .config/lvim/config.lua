@@ -67,6 +67,8 @@ lvim.builtin.which_key.mappings["sb"] = {}
 lvim.builtin.which_key.mappings["sb"] = {
   { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current buffer fuzzy find" },
 }
+lvim.builtin.which_key.mappings["lR"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" }
+lvim.builtin.which_key.mappings["lr"] = { "<cmd>Telescope lsp_references<CR>", "Find references" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -179,6 +181,7 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  "tpope/vim-fugitive",
   { "christoomey/vim-tmux-navigator" },
   { 'nvim-orgmode/orgmode',
     config = function()
@@ -188,6 +191,15 @@ lvim.plugins = {
       }
     end
   },
+  { "ray-x/lsp_signature.nvim", config = function()
+    require("lsp_signature").setup({
+      doc_lines = 0,
+      hint_enabled = false,
+    })
+  end
+  },
+  "ggandor/lightspeed.nvim",
+  "p00f/nvim-ts-rainbow",
   { "preservim/vimux" },
   { "vim-test/vim-test" },
   { "tpope/vim-surround" }
@@ -227,3 +239,36 @@ lvim.keys.visual_mode["<C-c><C-c>"] = "\"vy :call VimuxRunCommand(@v, 0)<CR>"
 -- Select current paragraph and send it to tmux
 lvim.keys.normal_mode["<C-c><C-c>"] = "vip\"vy :call VimuxRunCommand(@v)<CR>"
 lvim.keys.normal_mode["<C-c><C-l>"] = ":wa <bar> VimuxRunLastCommand<CR>"
+
+
+vim.cmd [[
+try
+  " setting a neovim theme here messes up other colorschemes
+  " setting it manually is fine
+  colorscheme onedark
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+
+
+function! RandomColorScheme()
+  let mycolors = split(globpath(&rtp,"colors/*.vim"),"\n")
+
+  let components = split(reltimestr(reltime()), '\.')
+  let microseconds = components[-1] + 0
+
+  let mycol = mycolors[microseconds % len(mycolors)]
+  let mycol = split(mycol, '/')[-1]
+  let mycol = substitute(mycol, '\.vim', '', '')
+
+  exec "colorscheme " . mycol
+  " display it
+  exec "colorscheme"
+
+  unlet mycolors
+  unlet mycol
+endfunction
+
+:command! NewColor call RandomColorScheme()
+]]

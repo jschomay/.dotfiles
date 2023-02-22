@@ -4,6 +4,8 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
+local trouble = require("trouble.providers.telescope")
+
 
 telescope.setup {
   defaults = {

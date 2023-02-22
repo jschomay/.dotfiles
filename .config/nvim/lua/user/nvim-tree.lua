@@ -42,7 +42,7 @@ nvim_tree.setup {
     "dashboard",
     "alpha",
   },
-  open_on_tab = true,
+  open_on_tab = false,
   hijack_cursor = false,
   update_cwd = false,
   diagnostics = {
@@ -56,7 +56,7 @@ nvim_tree.setup {
   },
   update_focused_file = {
     enable = true,
-    update_cwd = false,
+    update_root = false,
     ignore_list = {},
   },
   system_open = {
@@ -94,7 +94,7 @@ nvim_tree.setup {
   },
   actions = {
     open_file = {
-      quit_on_open = false,
+      quit_on_open = true,
     }
   }
 }

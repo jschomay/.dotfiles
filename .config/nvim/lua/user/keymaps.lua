@@ -45,8 +45,8 @@ keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+-- keymap("v", "<", "<gv", opts)
+-- keymap("v", ">", ">gv", opts)
 
 -- Move text up and down
 keymap("v", "<A-j>", ":m .+1<CR>==", opts)
@@ -67,3 +67,20 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+
+vim.cmd [[
+" vimux 'slime'
+function! VimuxSlime()
+    call VimuxSendText(@v)
+    call VimuxSendKeys("Enter")
+endfunction
+
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+ vmap <C-c><C-c> "vy :call VimuxSlime()<CR>
+
+" Select current paragraph and send it to tmux
+ nmap <C-c><C-c> vip<C-c><C-c>
+
+nmap <C-c><C-l> :wa <bar> VimuxRunLastCommand<CR>
+]]

@@ -35,3 +35,6 @@ configs.setup {
     -- [options]
   },
 }
+vim.api.nvim_set_keymap("n", "<S-Up>", "gnn", {})
+vim.api.nvim_set_keymap("v", "<S-Up>", "grn", {})
+vim.api.nvim_set_keymap("v", "<S-Down>", "grm", {})

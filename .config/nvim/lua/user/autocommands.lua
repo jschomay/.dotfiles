@@ -21,7 +21,7 @@ vim.cmd [[
 
   augroup _auto_resize
     autocmd!
-    autocmd VimResized * tabdo wincmd = 
+    autocmd VimResized * wincmd = 
   augroup end
 
   augroup _alpha
@@ -32,7 +32,7 @@ vim.cmd [[
   " Autoformat
   augroup _lsp
     autocmd!
-    autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
+    autocmd BufWritePre * lua vim.lsp.buf.format()
   augroup end
 
   " Set to auto read when a file is changed from the outside
@@ -46,7 +46,7 @@ vim.cmd [[
 
   " % matchwords for Elixir
   autocmd FileType elixir let b:match_words = '\<\%(case\|cond\|if\|unless\|try\|loop\|receive\|fn\|with\|' .
-      \ 'defmodule\|defimpl\|defmacro\|defdelegate\|defexception\|defcallback\|defoverridable\|defp\|def\|test\)\>=\@!:' .
+      \ 'defmodule\|defimpl\|defmacro\|defdelegate\|defexception\|defcallback\|defoverridable\|defp\|def\|describe\|setup\|test\)\>=\@!:' .
       \ '\<\%(else\|elsif\|catch\|after\|rescue\|\-\)\>:' .
       \ '\<end\>,{:},\[:\],(:)'
 ]]

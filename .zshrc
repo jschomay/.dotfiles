@@ -109,4 +109,37 @@ alias gg='git log --oneline --decorate --graph'
 alias gga='gg --all'
 alias vim='nvim'
 
+alias ci='git duet-commit'
 
+export ASDF_DIR='/opt/homebrew/opt/asdf/libexec'
+. $(brew --prefix asdf)/libexec/asdf.sh
+
+export PS1="$([[ ! -z "${UPTERM_ADMIN_SOCKET}"  ]] && echo -e '\xF0\x9F\x86\x99 ')$PS1" # Add an emoji to the prompt if `UPTERM_ADMIN_SOCKET` exists
+eval "$(direnv hook zsh)"
+
+export CPATH=/opt/homebrew/include
+export LIBRARY_PATH=/opt/homebrew/lib
+
+# needed because adsf looks in the wrong place for odbc  ???
+KERL_CONFIGURE_DISABLE_APPLICATIONS="odbc"
+
+export PROJECT_FOLDER=$HOME/Documents/code/
+
+PATH=opt/homebrew/bin:$PROJECT_FOLDER/dotfiles/bin:$PATH
+
+# PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
+# KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=/opt/homebrew/opt/openssl@1.1/"
+# Helps to compile ex_dtls on macos.
+export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl/lib/pkgconfig"
+
+export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --enable-darwin-64bit --enable-dynamic-ssl-lib --enable-hipe --enable-kernel-poll --enable-shared-zlib --enable-smp-support --enable-threads --enable-wx --with-dynamic-trace=dtrace --with-ssl=/opt/homebrew/opt/openssl@1.1 --with-wx-config=/opt/homebrew/opt/wxmac@3.1/bin/wx-config --without-javac"
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+source $PROJECT_FOLDER/dotfiles/dotfiles.d/pulumi.sh
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+export PATH="/opt/homebrew/bin:$PATH"
+
+export PATH=/Users/jeffometer/.local/bin:$PATH

@@ -134,7 +134,8 @@ cmp.setup {
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
-    { name = 'orgmode' }
+    { name = 'orgmode' },
+    { name = 'cmp_tabnine' },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

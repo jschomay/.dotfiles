@@ -202,9 +202,22 @@ lvim.plugins = {
   "p00f/nvim-ts-rainbow",
   { "preservim/vimux" },
   { "vim-test/vim-test" },
-  { "tpope/vim-surround" }
+  { "tpope/vim-surround" },
+  { "jcdickinson/codeium.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codeium").setup({
+      })
+    end
+  }
 }
 require('orgmode').setup_ts_grammar()
+lvim.builtin.cmp.formatting.source_names["codeium"] = "(Codeium)"
+table.insert(lvim.builtin.cmp.sources, 1, { name = "codeium" })
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {

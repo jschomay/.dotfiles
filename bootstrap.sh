@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
 # symlink everything
-ln -s ~/.dotfiles/.lein ~
-ln -s ~/.dotfiles/.vim ~
-ln -s ~/.dotfiles/.bashrc ~
-ln -s ~/.dotfiles/.git-completion.bash ~
+ln -s ~/.dotfiles/.zshrc ~
 ln -s ~/.dotfiles/.tmux.conf ~
-ln -s ~/.dotfiles/.ctags ~
 ln -s ~/.dotfiles/.gitconfig ~
-ln -s ~/.dotfiles/.git-prompt.sh ~
-ln -s ~/.dotfiles/.vimrc ~
 ln -s ~/.dotfiles/.config/nvim ~/.config/nvim
 ln -s ~/.dotfiles/.config/lvim/config.lua ~/.config/lvim/config.lua
 

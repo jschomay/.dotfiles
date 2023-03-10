@@ -1,145 +1,20 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+autoload -U compinit; compinit
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/jeffometer/.oh-my-zsh"
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
+autoload -U promptinit; promptinit
+prompt pure
+zstyle ':prompt:pure:prompt:success' color green
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
+export PATH="/Users/jeff/.local/bin:$PATH"
 
 alias gst='git status'
 alias ga='git add'
 alias gc='git commit'
 alias gap='git add -p'
-alias gd='git diff'
-alias gdc='git diff --cached'
 alias gg='git log --oneline --decorate --graph'
 alias gga='gg --all'
-alias vim='nvim'
-
-alias ci='git duet-commit'
-
-export ASDF_DIR='/opt/homebrew/opt/asdf/libexec'
-. $(brew --prefix asdf)/libexec/asdf.sh
-
-export PS1="$([[ ! -z "${UPTERM_ADMIN_SOCKET}"  ]] && echo -e '\xF0\x9F\x86\x99 ')$PS1" # Add an emoji to the prompt if `UPTERM_ADMIN_SOCKET` exists
-eval "$(direnv hook zsh)"
-
-export CPATH=/opt/homebrew/include
-export LIBRARY_PATH=/opt/homebrew/lib
-
-# needed because adsf looks in the wrong place for odbc  ???
-KERL_CONFIGURE_DISABLE_APPLICATIONS="odbc"
-
-export PROJECT_FOLDER=$HOME/Documents/code/
-
-PATH=opt/homebrew/bin:$PROJECT_FOLDER/dotfiles/bin:$PATH
-
-# PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
-# KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=/opt/homebrew/opt/openssl@1.1/"
-# Helps to compile ex_dtls on macos.
-export PKG_CONFIG_PATH="$(brew --prefix)/opt/openssl/lib/pkgconfig"
-
-export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --enable-darwin-64bit --enable-dynamic-ssl-lib --enable-hipe --enable-kernel-poll --enable-shared-zlib --enable-smp-support --enable-threads --enable-wx --with-dynamic-trace=dtrace --with-ssl=/opt/homebrew/opt/openssl@1.1 --with-wx-config=/opt/homebrew/opt/wxmac@3.1/bin/wx-config --without-javac"
-
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-source $PROJECT_FOLDER/dotfiles/dotfiles.d/pulumi.sh
-
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-export PATH="/opt/homebrew/bin:$PATH"
-
-export PATH=/Users/jeffometer/.local/bin:$PATH
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias grep='GREP_COLOR="7;33;40" LANG=C grep --color=auto'

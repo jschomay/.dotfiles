@@ -11,10 +11,11 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
-lvim.colorscheme = "lunar"
-lvim.lsp.diagnostics.virtual_text = {
+lvim.colorscheme = "tokyonight"
+vim.diagnostic.virtual_text = {
   severity = vim.diagnostic.severity.ERROR
 }
+-- vim.diagnostic.config({ virtual_text = false })
 vim.opt.clipboard = ""
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -53,6 +54,34 @@ lvim.builtin.telescope.defaults.mappings = {
 -- lvim.builtin.theme.options.style = "storm"
 
 -- Use which-key to add extra bindings with the leader-key prefix
+lvim.builtin.which_key.mappings["sb"] = {}
+lvim.builtin.which_key.mappings["sb"] = { "<cmd>Telescope current_buffer_fuzzy_find<CR>", "Find in current buffer" }
+lvim.builtin.which_key.mappings["lr"] = {}
+lvim.builtin.which_key.mappings["lr"] = { "<cmd>Telescope lsp_references<CR>", "Find references" }
+lvim.builtin.which_key.mappings["lR"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" }
+lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope grep_string<CR>", "Grep word under cursor" }
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Test",
+  n = { '<cmd>w | lua require("neotest").run.run()<CR>', "Test nearest" },
+  l = { '<cmd>w | lua require("neotest").run.run_last()<CR>', "Test last" },
+  f = { '<cmd>w | lua require("neotest").run.run(vim.fn.expand("%"))<CR>', "Test file" },
+  s = { '<cmd>w | lua require("neotest").summary.open()<CR>', "Test summary" },
+  o = { '<cmd>w | lua require("neotest").output.open()<CR>', "Test output" },
+  p = { '<cmd>w | lua require("neotest").output_panel.open()<CR>', "Test output panel" },
+}
+
+lvim.builtin.which_key.mappings["a"] = {
+  name = "+NeoAI",
+  t = { '<cmd>NeoAIToggle<CR>', "Toggle chat window" },
+  c = { '<cmd>NeoAI<CR>', "Open chat window" },
+  b = { '<cmd>NeoAIContext<CR>', "Open chat window with buffer as context" },
+}
+lvim.builtin.which_key.vmappings["a"] = {
+  name = "+NeoAI",
+  c = { '<cmd>\'<,\'>NeoAIContext<CR>', "Open chat window with selection as context" },
+}
+
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 -- lvim.builtin.which_key.mappings["t"] = {
 --   name = "+Trouble",
@@ -63,21 +92,18 @@ lvim.builtin.telescope.defaults.mappings = {
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 -- }
-lvim.builtin.which_key.mappings["sb"] = {}
-lvim.builtin.which_key.mappings["sb"] = {
-  { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current buffer fuzzy find" },
-}
-lvim.builtin.which_key.mappings["lR"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" }
-lvim.builtin.which_key.mappings["lr"] = { "<cmd>Telescope lsp_references<CR>", "Find references" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.terminal.active = true
+-- lvim.builtin.alpha.active = true
+-- lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.terminal.active = false
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
-lvim.builtin.treesitter.rainbow.enable = true
+-- lvim.builtin.treesitter.rainbow.enable = true
+lvim.builtin.project.manual_mode = true
+
+
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -144,6 +170,7 @@ require("lspconfig")["jedi_language_server"].setup({})
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
+  -- { command = "autopep8", filetypes = { "python" }, extra_args = { "--max-line-length=120" } },
   { command = "black", filetypes = { "python" } },
   { command = "isort", filetypes = { "python" } },
   {
@@ -160,7 +187,7 @@ formatters.setup {
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "flake8", extra_args = { "--extend-ignore", "E501" }, filetypes = { "python" } },
+  -- { command = "flake8", extra_args = { "--extend-ignore", "E501" }, filetypes = { "python" } },
   { command = "pylint", filetypes = { "python" } },
   --   {
   --     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -170,7 +197,7 @@ linters.setup {
   --     extra_args = { "--severity", "warning" },
   --   },
   {
-    command = "codespell"
+    -- command = "codespell"
     --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
     --     filetypes = { "javascript", "python" },
   },
@@ -179,12 +206,12 @@ linters.setup {
 -- Additional Plugins
 lvim.plugins = {
   {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+    "folke/trouble.nvim", cmd = "TroubleToggle",
   },
   "tpope/vim-fugitive",
-  { "christoomey/vim-tmux-navigator" },
-  { 'nvim-orgmode/orgmode',
+  "janko/vim-test",
+  {
+    'nvim-orgmode/orgmode',
     config = function()
       require('orgmode').setup {
         org_agenda_files = { '~/Dropbox/org/*' },
@@ -192,19 +219,45 @@ lvim.plugins = {
       }
     end
   },
-  { "ray-x/lsp_signature.nvim", config = function()
-    require("lsp_signature").setup({
-      doc_lines = 0,
-      hint_enabled = false,
-    })
-  end
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      -- "jfpedroza/neotest-elixir",
+      "nvim-neotest/neotest-python",
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          -- require("neotest-elixir"),
+          require("neotest-python")
+
+          -- require("neotest-vim-test")({
+          --   ignore_file_types = { "python", "vim", "lua" },
+          -- }),
+        },
+      })
+    end
+  },
+  "tpope/vim-surround",
+  "preservim/vimux",
+  "christoomey/vim-tmux-navigator",
+  {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup({
+        doc_lines = 0,
+        hint_enabled = false,
+      })
+    end
   },
   "ggandor/lightspeed.nvim",
-  "preservim/vimux",
-  "vim-test/vim-test",
-  "tpope/vim-surround",
-  { "jcdickinson/codeium.nvim",
-    requires = {
+  "p00f/nvim-ts-rainbow",
+  {
+    "jcdickinson/codeium.nvim",
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "hrsh7th/nvim-cmp",
@@ -213,13 +266,28 @@ lvim.plugins = {
       require("codeium").setup({
       })
     end
-  }
+  },
+  "AbdelrahmanDwedar/awesome-nvim-colorschemes",
+  "lunarvim/colorschemes",
+  "andreasvc/vim-256noir",
+  "alligator/accent.vim",
+  "davidosomething/vim-colors-meh",
+  "savq/melange-nvim",
 }
+
+vim.g.accent_colour = 'cyan'
+
 require('orgmode').setup_ts_grammar()
+
 lvim.builtin.cmp.formatting.source_names["codeium"] = "(Codeium)"
 table.insert(lvim.builtin.cmp.sources, 1, { name = "codeium" })
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+  pattern = { "*" },
+  -- enable wrap mode for json files only
+  command = "silent! wall",
+})
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = { "*.json", "*.jsonc" },
 --   -- enable wrap mode for json files only
@@ -232,6 +300,12 @@ table.insert(lvim.builtin.cmp.sources, 1, { name = "codeium" })
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "org",
   callback = function()
@@ -263,25 +337,34 @@ catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
   set background=dark
 endtry
-
-
-function! RandomColorScheme()
-  let mycolors = split(globpath(&rtp,"colors/*.vim"),"\n")
-
-  let components = split(reltimestr(reltime()), '\.')
-  let microseconds = components[-1] + 0
-
-  let mycol = mycolors[microseconds % len(mycolors)]
-  let mycol = split(mycol, '/')[-1]
-  let mycol = substitute(mycol, '\.vim', '', '')
-
-  exec "colorscheme " . mycol
-  " display it
-  exec "colorscheme"
-
-  unlet mycolors
-  unlet mycol
-endfunction
-
-:command! NewColor call RandomColorScheme()
 ]]
+
+
+function RandomColorScheme()
+  local default_colors = { 'blue', 'darkblue', 'default', 'delek', 'desert', 'elflord', 'evening', 'industry',
+    'koehler', 'morning', 'murphy', 'pablo', 'peachpuff', 'ron', 'shine', 'slate',
+    'torte', 'zellner', 'romainl' }
+
+  local mycolors = vim.fn.getcompletion('', 'color')
+
+  -- removing default colors from the list.
+  local filtered_colors = {}
+  for _, color in ipairs(mycolors) do
+    local color_name = vim.fn.fnamemodify(color, ':t:r')
+    if not vim.tbl_contains(default_colors, color_name) then
+      table.insert(filtered_colors, color_name)
+    end
+  end
+
+  -- print("Available colors: ")
+  -- print(table.concat(filtered_colors, ", "))
+  --
+  local mycol = filtered_colors[math.random(#filtered_colors)]
+  vim.api.nvim_command("colorscheme " .. mycol)
+  -- print new color after 1 second
+  vim.defer_fn(function()
+    print("New color: " .. mycol)
+  end, 100)
+end
+
+vim.cmd [[command! RandomColorScheme lua RandomColorScheme()]]

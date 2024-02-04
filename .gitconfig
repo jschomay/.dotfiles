@@ -15,7 +15,7 @@
 	tool = nvimdiff2
 	conflictstyle = diff3
 [pull]
-	rebase = preserve
+	rebase = true
 [init]
 	defaultBranch = main
 [difftool]

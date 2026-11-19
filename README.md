@@ -19,6 +19,20 @@ git clone https://github.com/jschomay/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles && source bootstrap.sh && cd -
 ```
 
-For now, you need to install vim, tmux, brew, and what ever else on your own.
+The bootstrap script backs up anything already in the way (e.g. `~/.config/nvim.bak.<timestamp>`) before linking, and is safe to re-run.
+
+For now, you need to install neovim, tmux, brew, and what ever else on your own.
+
+### Neovim
+
+The nvim config is [LazyVim](https://lazyvim.github.io). Customizations live in `lua/config/*.lua` and `lua/plugins/custom.lua`; enabled extras are in `lazyvim.json`.
+
+On a new machine, for a clean start move aside any old nvim data first:
+
+```bash
+for d in ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim; do [ -e $d ] && mv $d $d.bak; done
+```
+
+Then open `nvim` (plugins install automatically) and run `:Lazy restore` to match the versions pinned in `lazy-lock.json`.
 
 Also, add your name and email to `.gitconfg`.
